@@ -1,123 +1,105 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b0a">
-  <meta name="description" content="Nexo Studio crea páginas web premium, tiendas online y experiencias digitales para marcas que quieren destacar.">
-  <meta property="og:title" content="Nexo Studio — Diseñamos lo extraordinario">
-  <meta property="og:description" content="Diseño estratégico, desarrollo web y experiencias digitales.">
-  <meta property="og:type" content="website">
-  <title>Nexo Studio® — Diseño y Desarrollo Web</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nexo Studio — Diseño y desarrollo web profesional">
+  <title>Nexo Studio | Diseño y Desarrollo Web</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilo.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
 
   <header class="header" id="header">
-    <a class="brand" href="#inicio" aria-label="Nexo Studio, inicio">
-      <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>NEXO<span class="brand-light">® STUDIO</span></span>
-    </a>
-
-    <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
-      <span></span><span></span>
-    </button>
-
-    <nav id="nav" aria-label="Navegación principal">
-      <a href="#servicios">Servicios</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#planes">Paquetes</a>
-    </nav>
-
-    <a class="header-cta" href="#contacto">Iniciar un proyecto <span>↗</span></a>
+    <div class="section-shell">
+      <div class="brand">
+        <span class="brand-symbol">
+          <i></i><i></i><i></i>
+        </span>
+        <span>NEXO <span class="brand-light">STUDIO</span></span>
+      </div>
+      <nav id="nav">
+        <a href="#servicios">Servicios</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="header-cta">
+        <a id="direct-whatsapp" href="#" class="text-link">
+          <span>↗</span>
+          <span>Escríbenos</span>
+        </a>
+      </div>
+      <button class="menu" id="menu" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </header>
 
   <main>
-    <section class="hero section-shell" id="inicio">
+    <section class="hero section-shell">
       <div class="hero-copy">
-        <div class="eyebrow reveal">
+        <p class="eyebrow">
           <span class="status-dot"></span>
-          ESTUDIO DIGITAL INDEPENDIENTE
-        </div>
-
-        <h1 class="hero-title reveal">
-          Tu marca merece
-          <span class="title-line">algo <em>extraordinario.</em></span>
-        </h1>
-
-        <p class="hero-description reveal">
-          Diseñamos y desarrollamos experiencias digitales que convierten
-          buenas ideas en marcas difíciles de ignorar.
+          Diseño y desarrollo web
         </p>
-
-        <div class="hero-actions reveal">
-          <a class="button button-primary" href="#proyectos">Explorar proyectos <span>↗</span></a>
-          <a class="text-link" href="#servicios">Descubrir el estudio <span>↓</span></a>
+        <h1 class="hero-title">
+          <span class="title-line">Tu marca</span>
+          <span class="title-line">merece un <em>espacio</em></span>
+          <span class="title-line"><em>digital</em> único</span>
+        </h1>
+        <p class="hero-description">
+          Creamos páginas web que destacan, con diseño moderno, velocidad y experiencia pensada para tus clientes.
+        </p>
+        <div class="hero-actions">
+          <a href="#contacto" class="button button-primary">
+            <span>↗</span>
+            Solicitar propuesta
+          </a>
+          <a href="#portafolio" class="text-link">
+            <span>↓</span>
+            Ver trabajos
+          </a>
         </div>
-
-        <div class="hero-footnote reveal">
-          <span>ESTRATEGIA</span><span class="foot-separator">/</span>
-          <span>DISEÑO</span><span class="foot-separator">/</span>
-          <span>DESARROLLO</span>
-        </div>
+        <p class="hero-footnote">
+          Hecho en Colombia <span class="foot-separator">•</span> Envíos a todo el mundo
+        </p>
       </div>
-
-      <!-- MALLA DIGITAL INTERACTIVA -->
-      <div class="hero-art" id="hero-art" aria-label="Malla tridimensional interactiva de puntos verdes" role="img">
-        <div class="art-grid" aria-hidden="true"></div>
-        <div class="art-halo halo-one" aria-hidden="true"></div>
-        <div class="art-halo halo-two" aria-hidden="true"></div>
-
-        <div class="art-scene" id="art-scene">
-          <canvas
-            id="mesh-canvas"
-            class="mesh-canvas"
-            aria-hidden="true"
-          ></canvas>
-
-          <div class="floating-label label-top" aria-hidden="true">
-            <span class="label-dot"></span>
-            <span>DESIGNING WHAT'S NEXT</span>
-          </div>
-
-          <div class="floating-label label-bottom" aria-hidden="true">
-            <span>NX—001</span>
-            <span>EXPERIENCIA DIGITAL</span>
-          </div>
-        </div>
-
-        <div class="art-index" aria-hidden="true"><span>01</span> / 04</div>
-      </div>
-
-      <div class="hero-bottom">
-        <span>DISEÑO CON INTENCIÓN. TECNOLOGÍA CON PROPÓSITO.</span>
-        <a href="#manifiesto" aria-label="Desplazarse a nuestra filosofía">DESLIZA PARA EXPLORAR ↓</a>
+      <div class="hero-art" id="hero-art">
+        <canvas class="mesh-canvas" id="mesh-canvas"></canvas>
+        <p class="floating-label label-top">INTERACTIVO</p>
+        <p class="art-index">
+          <span>◈</span> MALLA 3D
+        </p>
+        <p class="floating-label label-bottom">
+          <span>●</span>
+          <span>Desliza el cursor</span>
+        </p>
       </div>
     </section>
 
     <section class="manifest section-shell" id="manifiesto">
-      <div class="section-kicker reveal">
-        <span>01 / NUESTRA VISIÓN</span><span>MENOS RUIDO. MÁS IMPACTO.</span>
-      </div>
-      <div class="manifest-content">
-        <h2 class="manifest-title reveal">
-          No se trata solo de estar en internet.
-          <span>Se trata de <em>dejar huella.</em></span>
+      <p class="section-kicker">
+        <span>01</span>
+        <span>Nuestra visión</span>
+      </p>
+      <div class="manifest-content reveal">
+        <h2 class="manifest-title">
+          No construimos solo páginas.
+          <span>Construimos la <em>primera impresión</em> de tu marca.</span>
         </h2>
-        <div class="manifest-bottom reveal">
-          <p>Una buena web no solo se ve bien. Comunica el valor de tu marca, genera confianza y hace que dar el siguiente paso sea natural.</p>
-          <a class="circle-link" href="#servicios" aria-label="Conocer servicios"><span>↘</span></a>
+        <div class="manifest-bottom">
+          <p>
+            Cada proyecto empieza por entenderte. No hacemos plantillas ni copias. Diseñamos desde cero algo que se parezca a ti: auténtico, memorable y funcional.
+          </p>
+          <a href="#contacto" class="circle-link">↗</a>
         </div>
       </div>
     </section>
@@ -125,253 +107,391 @@
     <section class="services section-shell" id="servicios">
       <div class="section-heading reveal">
         <div>
-          <div class="section-kicker"><span>02 / LO QUE HACEMOS</span></div>
-          <h2>Ideas claras.<br><em>Resultados digitales.</em></h2>
+          <p class="section-kicker">
+            <span>02</span>
+            <span>Lo que hacemos</span>
+          </p>
+          <h2>Servicios</h2>
         </div>
-        <p>Combinamos estrategia, estética y tecnología para crear sitios web que trabajan a favor de tu negocio.</p>
+        <p>Soluciones completas para tu presencia digital, desde la idea hasta la publicación.</p>
       </div>
-
       <div class="service-grid">
-        <article class="service-card reveal">
-          <div class="service-number">01 — STRATEGY</div>
-          <div class="service-icon icon-target" aria-hidden="true"><span></span><span></span><span></span></div>
+        <article class="service-card reveal" data-service="Estrategia digital">
+          <p class="service-number">01</p>
+          <div class="service-icon icon-target">
+            <span></span><span></span><span></span>
+          </div>
           <h3>Estrategia digital</h3>
-          <p>Definimos la estructura, los mensajes y el recorrido para que tu página tenga un propósito desde el primer clic.</p>
-          <a href="#contacto" class="service-link" data-service="Estrategia digital">Hablemos de tu idea <span>↗</span></a>
+          <p>Definimos juntos tu identidad, objetivos y la mejor forma de conectar con tu público.</p>
+          <a href="#contacto" class="service-link">
+            <span>→</span> Más información
+          </a>
         </article>
-
-        <article class="service-card reveal">
-          <div class="service-number">02 — DESIGN</div>
-          <div class="service-icon icon-cube" aria-hidden="true"><span></span></div>
+        <article class="service-card reveal" data-service="Diseño de experiencias">
+          <p class="service-number">02</p>
+          <div class="service-icon icon-cube">
+            <span></span>
+          </div>
           <h3>Diseño de experiencias</h3>
-          <p>Identidad visual digital, interfaces elegantes, jerarquía tipográfica y detalles que hacen reconocible tu marca.</p>
-          <a href="#contacto" class="service-link" data-service="Diseño de experiencias">Hablemos de tu idea <span>↗</span></a>
+          <p>Diseño visual, estructura, colores y detalles que hacen que tu marca se vea distinta.</p>
+          <a href="#contacto" class="service-link">
+            <span>→</span> Más información
+          </a>
         </article>
-
-        <article class="service-card reveal">
-          <div class="service-number">03 — DEVELOPMENT</div>
-          <div class="service-icon icon-code" aria-hidden="true"><span>&lt;/&gt;</span></div>
+        <article class="service-card reveal" data-service="Desarrollo web">
+          <p class="service-number">03</p>
+          <div class="service-icon icon-code">
+            <span>{ }</span>
+          </div>
           <h3>Desarrollo web</h3>
-          <p>Sitios responsive, catálogos, páginas corporativas y tiendas online con una experiencia fluida en cada pantalla.</p>
-          <a href="#contacto" class="service-link" data-service="Desarrollo web">Hablemos de tu idea <span>↗</span></a>
+          <p>Construcción rápida, segura y optimizada para celulares, tabletas y computadoras.</p>
+          <a href="#contacto" class="service-link">
+            <span>→</span> Más información
+          </a>
         </article>
       </div>
     </section>
 
-    <section class="portfolio section-shell" id="proyectos">
+    <section class="portfolio section-shell" id="portafolio">
       <div class="section-heading reveal">
         <div>
-          <div class="section-kicker"><span>03 / LABORATORIO CREATIVO</span></div>
-          <h2>Ideas que toman<br><em>forma digital.</em></h2>
+          <p class="section-kicker">
+            <span>03</span>
+            <span>Trabajos seleccionados</span>
+          </p>
+          <h2>Portafolio</h2>
         </div>
-        <p>Conceptos visuales para mostrar distintas posibilidades de diseño y desarrollo. Cada negocio merece una solución propia.</p>
+        <p>Proyectos reales construidos con la misma dedicación que pondremos en el tuyo.</p>
       </div>
-
       <div class="portfolio-grid">
-        <article class="project project-large reveal">
-          <a class="project-image project-fashion" href="#contacto" data-project="Éclat — concepto de tienda premium" aria-label="Consultar un proyecto de tienda premium">
-            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1400&q=85" alt="Frascos de perfume en una composición de lujo" loading="lazy">
-            <span class="project-overlay"></span><span class="project-open" aria-hidden="true">↗</span>
-            <span class="project-image-label">CONCEPTO / 001</span>
-            <div class="mockup-caption"><span>ÉCLAT</span><span>OBJECTS OF DESIRE</span></div>
+        <article class="project project-large reveal" data-project="Alborada">
+          <a href="#" class="project-image">
+            <img src="https://images.unsplash.com/photo-1549057446-1892dcf1819c?w=800&auto=format&fit=crop" alt="Chocolatería Alborada" loading="lazy">
+            <div class="project-overlay"></div>
+            <span class="project-image-label">DESTACADO</span>
+            <span class="project-open">↗</span>
+            <div class="mockup-caption">
+              <span>Alborada</span>
+              <span>CHOCOLATERÍA ARTESANAL</span>
+            </div>
           </a>
           <div class="project-info">
-            <div><h3>Éclat — tienda premium</h3><p>Concepto de comercio electrónico · Belleza y estilo de vida</p></div>
-            <span class="project-tag">E-COMMERCE</span>
+            <div>
+              <h3>Chocolatería Alborada</h3>
+              <p>Marca, catálogo y formulario de pedidos personalizados</p>
+            </div>
+            <span class="project-tag">Completo</span>
           </div>
         </article>
-
-        <article class="project project-small reveal">
-          <a class="project-image project-food" href="#contacto" data-project="Forma — concepto gastronómico" aria-label="Consultar un proyecto gastronómico">
-            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1000&q=85" alt="Repostería artesanal cuidadosamente presentada" loading="lazy">
-            <span class="project-overlay"></span><span class="project-open" aria-hidden="true">↗</span>
-            <span class="project-image-label">CONCEPTO / 002</span>
-            <div class="mockup-caption"><span>FORMA</span><span>ARTISAN BAKERY</span></div>
+        <article class="project reveal" data-project="Proyecto Comercial">
+          <a href="#" class="project-image">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop" alt="Sitio comercial" loading="lazy">
+            <div class="project-overlay"></div>
+            <span class="project-image-label">NEXO</span>
+            <span class="project-open">↗</span>
+            <div class="mockup-caption">
+              <span>Comercio</span>
+              <span>TIENDA EN LÍNEA</span>
+            </div>
           </a>
           <div class="project-info">
-            <div><h3>Forma — marca gastronómica</h3><p>Web de marca · Gastronomía</p></div>
-            <span class="project-tag">BRANDING WEB</span>
+            <div>
+              <h3>Tienda en línea</h3>
+              <p>Catálogo, carrito y enlaces directos de pedido</p>
+            </div>
+            <span class="project-tag">Estándar</span>
           </div>
         </article>
-
-        <article class="project project-small reveal">
-          <a class="project-image project-architecture" href="#contacto" data-project="Atelier — concepto corporativo" aria-label="Consultar un proyecto corporativo">
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85" alt="Interior arquitectónico contemporáneo con materiales naturales" loading="lazy">
-            <span class="project-overlay"></span><span class="project-open" aria-hidden="true">↗</span>
-            <span class="project-image-label">CONCEPTO / 003</span>
-            <div class="mockup-caption"><span>ATELIER</span><span>SPACE &amp; FORM</span></div>
+        <article class="project reveal" data-project="Proyecto Personal">
+          <a href="#" class="project-image">
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop" alt="Sitio personal" loading="lazy">
+            <div class="project-overlay"></div>
+            <span class="project-image-label">BÁSICO</span>
+            <span class="project-open">↗</span>
+            <div class="mockup-caption">
+              <span>Identidad</span>
+              <span>PÁGINA DE PRESENTACIÓN</span>
+            </div>
           </a>
           <div class="project-info">
-            <div><h3>Atelier — estudio de arquitectura</h3><p>Web corporativa · Diseño y arquitectura</p></div>
-            <span class="project-tag">CORPORATE</span>
-          </div>
-        </article>
-
-        <article class="project project-large reveal">
-          <a class="project-image project-tech" href="#contacto" data-project="NOVA — concepto de marca tecnológica" aria-label="Consultar un proyecto tecnológico">
-            <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1400&q=85" alt="Composición abstracta de formas y materiales contemporáneos" loading="lazy">
-            <span class="project-overlay"></span><span class="project-open" aria-hidden="true">↗</span>
-            <span class="project-image-label">CONCEPTO / 004</span>
-            <div class="mockup-caption"><span>NOVA</span><span>BEYOND THE ORDINARY</span></div>
-          </a>
-          <div class="project-info">
-            <div><h3>NOVA — marca tecnológica</h3><p>Experiencia digital · Tecnología</p></div>
-            <span class="project-tag">DIGITAL EXPERIENCE</span>
+            <div>
+              <h3>Página personal</h3>
+              <p>Presentación, redes sociales y contacto directo</p>
+            </div>
+            <span class="project-tag">Básico</span>
           </div>
         </article>
       </div>
-      <p class="portfolio-note reveal">* Proyectos conceptuales de demostración. No representan clientes ni resultados comerciales reales.</p>
+      <p class="portfolio-note">
+        Cada proyecto se adapta a las necesidades reales del cliente. No hay dos sitios iguales.
+      </p>
     </section>
 
     <section class="statement section-shell">
-      <div class="statement-art reveal" aria-hidden="true">
-        <div class="statement-ring"></div><div class="statement-orb"></div>
-        <span class="statement-cross cross-one">+</span><span class="statement-cross cross-two">+</span>
+      <div class="statement-art reveal">
+        <div class="statement-ring"></div>
+        <div class="statement-orb"></div>
+        <p class="statement-cross cross-one">◈</p>
+        <p class="statement-cross cross-two">◈</p>
       </div>
       <div class="statement-copy reveal">
-        <div class="section-kicker"><span>04 / NUESTRA DIFERENCIA</span></div>
-        <h2>Diseño con intención.<br><em>Detalles que importan.</em></h2>
-        <p>No usamos efectos por usarlos. Cada decisión visual responde a una necesidad: explicar, orientar, emocionar o facilitar una acción.</p>
+        <p class="section-kicker">
+          <span>04</span>
+          <span>Por qué nosotros</span>
+        </p>
+        <h2>Tu página no debe parecerse a la de nadie más.</h2>
+        <p>Muchos ofrecen plantillas iguales. Nosotros construimos desde cero. Cada línea de código se escribe pensando en tu marca, sin copiar, sin reciclar.</p>
         <div class="principles">
-          <div><span>01</span><p>Claridad antes que complejidad.</p></div>
-          <div><span>02</span><p>Estética respaldada por funcionalidad.</p></div>
-          <div><span>03</span><p>Una experiencia pensada para cada pantalla.</p></div>
+          <div>
+            <span>01</span>
+            <p>Diseño único y exclusivo</p>
+          </div>
+          <div>
+            <span>02</span>
+            <p>Optimizado para que cargue rápido</p>
+          </div>
+          <div>
+            <span>03</span>
+            <p>Funciona perfecto en celular</p>
+          </div>
+          <div>
+            <span>04</span>
+            <p>Código limpio y fácil de mantener</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="process section-shell" id="proceso">
       <div class="section-heading reveal">
-        <div><div class="section-kicker"><span>05 / CÓMO TRABAJAMOS</span></div><h2>Del concepto<br><em>a la realidad.</em></h2></div>
-        <p>Un proceso claro y colaborativo para que sepas qué estamos construyendo, por qué y qué sigue.</p>
+        <div>
+          <p class="section-kicker">
+            <span>05</span>
+            <span>Cómo trabajamos</span>
+          </p>
+          <h2>Proceso</h2>
+        </div>
+        <p>Claridad en cada paso. Sabes en qué va tu proyecto y cuándo estará listo.</p>
       </div>
       <div class="process-list">
-        <article class="process-step reveal"><span class="process-index">01</span><div><h3>Descubrimiento</h3><p>Conocemos tu negocio, tus objetivos, tus clientes y las necesidades del proyecto.</p></div><span class="process-symbol">↗</span></article>
-        <article class="process-step reveal"><span class="process-index">02</span><div><h3>Dirección creativa</h3><p>Definimos la estructura, la identidad visual y la experiencia que mejor representa tu marca.</p></div><span class="process-symbol">↗</span></article>
-        <article class="process-step reveal"><span class="process-index">03</span><div><h3>Diseño y desarrollo</h3><p>Convertimos la propuesta en una web responsive, cuidando detalles visuales y funcionales.</p></div><span class="process-symbol">↗</span></article>
-        <article class="process-step reveal"><span class="process-index">04</span><div><h3>Revisión y lanzamiento</h3><p>Revisamos el resultado contigo, corregimos detalles acordados y preparamos la publicación.</p></div><span class="process-symbol">↗</span></article>
+        <div class="process-step reveal">
+          <p class="process-index">PASO 01</p>
+          <div>
+            <h3>Conversamos</h3>
+            <p>Nos cuentas tu idea, tu marca y qué quieres lograr. Sin compromiso.</p>
+          </div>
+          <span class="process-symbol">↗</span>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-index">PASO 02</p>
+          <div>
+            <h3>Propuesta y diseño</h3>
+            <p>Te presentamos el plan, el aspecto visual y el tiempo de entrega. Si estás de acuerdo, empezamos.</p>
+          </div>
+          <span class="process-symbol">↗</span>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-index">PASO 03</p>
+          <div>
+            <h3>Construcción y avances</h3>
+            <p>Trabajamos mientras ves cómo va tomando forma. Recibes avances y puedes sugerir cambios.</p>
+          </div>
+          <span class="process-symbol">↗</span>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-index">PASO 04</p>
+          <div>
+            <h3>Entrega y publicación</h3>
+            <p>Tu página lista, visible en internet y funcionando. Te enseñamos cómo administrarla.</p>
+          </div>
+          <span class="process-symbol">✓</span>
+        </div>
       </div>
     </section>
 
-    <section class="pricing section-shell" id="planes">
+    <section class="pricing section-shell" id="precios">
       <div class="section-heading reveal">
-        <div><div class="section-kicker"><span>06 / FORMAS DE EMPEZAR</span></div><h2>Una solución para<br><em>cada ambición.</em></h2></div>
-        <p>Alcances iniciales orientativos. Cada propuesta se ajusta a las necesidades, funcionalidades y objetivos de tu proyecto.</p>
+        <div>
+          <p class="section-kicker">
+            <span>06</span>
+            <span>Inversión</span>
+          </p>
+          <h2>Paquetes</h2>
+        </div>
+        <p>El precio final depende de lo que necesites. Estos son referentes reales.</p>
       </div>
-
       <div class="pricing-grid">
-        <article class="price-card reveal">
-          <div class="price-top"><span class="price-label">01 / ESSENTIAL</span><span class="price-symbol">↗</span></div>
-          <h3>Esencial</h3>
-          <p class="price-description">Una presencia digital profesional para empezar con bases sólidas.</p>
-          <div class="price-amount">Desde <strong>$450.000</strong><span>COP</span></div>
+        <div class="price-card reveal">
+          <p class="price-label">BÁSICO</p>
+          <span class="price-symbol">◈</span>
+          <h3>Presentación</h3>
+          <p class="price-description">Para quien empieza y necesita verse profesional.</p>
+          <p class="price-amount">
+            <strong>Desde $450.000</strong>
+            <span>COP</span>
+          </p>
           <div class="price-rule"></div>
-          <ul><li>Landing page de una página</li><li>Diseño responsive</li><li>Información y servicios</li><li>Botón de contacto por WhatsApp</li><li>Formulario de contacto básico</li></ul>
-          <button class="button button-outline choose-plan" type="button" data-plan="Esencial">Consultar paquete <span>↗</span></button>
-        </article>
-
-        <article class="price-card price-featured reveal">
-          <div class="featured-label">MÁS VERSÁTIL</div>
-          <div class="price-top"><span class="price-label">02 / PROFESSIONAL</span><span class="price-symbol">✳</span></div>
-          <h3>Profesional</h3>
-          <p class="price-description">Una web más completa para presentar tu negocio y convertir visitas en consultas.</p>
-          <div class="price-amount">Desde <strong>$850.000</strong><span>COP</span></div>
+          <ul>
+            <li>Página de inicio + contacto</li>
+            <li>Diseño adaptable a celular</li>
+            <li>Enlace público en internet</li>
+            <li>Formulario o botón directo</li>
+            <span style="opacity: .4;">—</span>
+            <li style="opacity: .4;">Sin personalización avanzada</li>
+          </ul>
+          <button class="button button-outline choose-plan" data-plan="Básico">
+            Solicitar
+          </button>
+        </div>
+        <div class="price-card price-featured reveal">
+          <span class="featured-label">RECOMENDADO</span>
+          <p class="price-label">COMPLETO</p>
+          <span class="price-symbol">◈</span>
+          <h3>Presencia digital</h3>
+          <p class="price-description">Todo lo que tu marca necesita para crecer.</p>
+          <p class="price-amount">
+            <strong>Desde $950.000</strong>
+            <span>COP</span>
+          </p>
           <div class="price-rule"></div>
-          <ul><li>Hasta 5 secciones o páginas sencillas</li><li>Diseño visual personalizado</li><li>Galería o portafolio</li><li>Integración con WhatsApp</li><li>Animaciones y microinteracciones</li><li>Configuración básica de SEO</li></ul>
-          <button class="button button-primary choose-plan" type="button" data-plan="Profesional">Consultar paquete <span>↗</span></button>
-        </article>
-
-        <article class="price-card reveal">
-          <div class="price-top"><span class="price-label">03 / SIGNATURE</span><span class="price-symbol">◇</span></div>
-          <h3>Signature</h3>
-          <p class="price-description">Una experiencia distintiva para marcas que necesitan mayor profundidad visual.</p>
-          <div class="price-amount">Desde <strong>$1.500.000</strong><span>COP</span></div>
+          <ul>
+            <li>Diseño único desde cero</li>
+            <li>Secciones completas (inicio, servicios, portafolio, contacto)</li>
+            <li>Catálogo o galería de productos</li>
+            <li>Optimización de velocidad</li>
+            <li>Configuración lista para publicar</li>
+            <li>Explicación de uso y mantenimiento</li>
+          </ul>
+          <button class="button button-primary choose-plan" data-plan="Completo">
+            Solicitar
+          </button>
+        </div>
+        <div class="price-card reveal">
+          <p class="price-label">PERSONALIZADO</p>
+          <span class="price-symbol">◈</span>
+          <h3>A tu medida</h3>
+          <p class="price-description">Funcionalidades especiales según tu proyecto.</p>
+          <p class="price-amount">
+            <strong>Presupuesto</strong>
+            <span>personalizado</span>
+          </p>
           <div class="price-rule"></div>
-          <ul><li>Diseño y dirección creativa a medida</li><li>Interacciones y animaciones avanzadas</li><li>Portafolio o catálogo personalizado</li><li>Experiencia visual 3D según alcance</li><li>Optimización de rendimiento</li><li>Asesoría de lanzamiento</li></ul>
-          <button class="button button-outline choose-plan" type="button" data-plan="Signature">Consultar paquete <span>↗</span></button>
-        </article>
+          <ul>
+            <li>Analizamos tu proyecto completo</li>
+            <li>Funciones a medida</li>
+            <li>Integración con redes o sistemas</li>
+            <li>Etapas de desarrollo definidas</li>
+            <li>Plazos claros y avances periódicos</li>
+            <li>Acuerdo escrito</li>
+          </ul>
+          <button class="button button-outline choose-plan" data-plan="Personalizado">
+            Escribirnos
+          </button>
+        </div>
       </div>
-
-      <p class="pricing-disclaimer reveal">Los valores son precios iniciales propuestos para la oferta comercial de Nexo Studio, no cotizaciones definitivas. Dominio, alojamiento, licencias, comercio electrónico y servicios externos pueden tener costos adicionales.</p>
+      <p class="pricing-disclaimer">
+        Los valores son estimaciones en moneda colombiana. El precio final se confirma tras la conversación inicial sin compromiso.
+      </p>
     </section>
 
     <section class="contact section-shell" id="contacto">
       <div class="contact-panel reveal">
         <div class="contact-copy">
-          <div class="section-kicker"><span>07 / HABLEMOS</span></div>
-          <h2>Tu siguiente gran idea<br>empieza <em>aquí.</em></h2>
-          <p>Cuéntanos qué tienes en mente. Hablemos de tus objetivos y de cómo una experiencia digital puede ayudarte a alcanzarlos.</p>
-
-          <a class="contact-direct" href="#" id="direct-whatsapp" target="_blank" rel="noopener noreferrer">
+          <p class="section-kicker">
+            <span>07</span>
+            <span>Empezamos</span>
+          </p>
+          <h2>Cuéntanos sobre tu proyecto.</h2>
+          <p>No necesitas tener todo resuelto. Solo cuéntanos qué tienes en mente y te ayudamos a darle forma.</p>
+          <a id="footer-whatsapp" href="#" class="contact-direct">
             <span class="whatsapp-icon">↗</span>
-            <span><strong>Conversemos por WhatsApp</strong><small>Cuéntanos tu proyecto directamente</small></span>
-            <span class="direct-arrow">↗</span>
+            <span>
+              <strong>Escríbenos por WhatsApp</strong>
+              <small>Respuesta rápida · Sin compromiso</small>
+            </span>
+            <span class="direct-arrow">→</span>
           </a>
-
-          <div class="contact-meta"><span>DISEÑO CON PROPÓSITO</span><span>DESARROLLO A MEDIDA</span></div>
+          <div class="contact-meta">
+            <span>nexostudio@correo.com</span>
+            <span>Colombia · Soacha / Bogotá</span>
+            <span id="year">2026</span>
+          </div>
         </div>
-
-        <form class="contact-form" id="contact-form">
-          <div class="form-heading"><span>INICIAR UN PROYECTO</span><span class="form-indicator"></span></div>
-
-          <label for="nombre">¿Cómo te llamas?</label>
-          <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" required>
-
-          <label for="correo">Tu correo electrónico</label>
-          <input id="correo" name="correo" type="email" placeholder="hola@tuempresa.com" autocomplete="email" required>
-
-          <label for="servicio">¿Qué necesitas?</label>
+        <form id="contact-form" class="contact-form">
+          <p class="form-heading">
+            <span>Formulario de solicitud</span>
+            <span class="form-indicator"></span>
+          </p>
+          
+          <label for="nombre">Tu nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+          
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+          
+          <label for="servicio">Tipo de servicio</label>
           <select id="servicio" name="servicio" required>
-            <option value="" disabled selected>Selecciona un servicio</option>
-            <option value="Landing page">Landing page</option>
-            <option value="Web corporativa">Web corporativa</option>
-            <option value="Tienda online">Tienda online</option>
-            <option value="Catálogo digital">Catálogo digital</option>
-            <option value="Diseño visual">Diseño visual</option>
-            <option value="Experiencia web 3D">Experiencia web 3D</option>
-            <option value="No lo tengo definido">Necesito asesoría</option>
+            <option value="">Selecciona una opción</option>
+            <option value="Página de presentación">Página de presentación</option>
+            <option value="Sitio con catálogo">Sitio con catálogo / productos</option>
+            <option value="Tienda en línea">Tienda en línea</option>
+            <option value="Rediseño de página existente">Rediseño de página existente</option>
+            <option value="Otro / No lo sé">Otro / No lo sé aún</option>
           </select>
-
+          
           <label for="presupuesto">Presupuesto aproximado</label>
           <select id="presupuesto" name="presupuesto">
-            <option value="Por definir">Aún no lo he definido</option>
+            <option value="Por definir">Prefiero conversarlo</option>
             <option value="Menos de $500.000 COP">Menos de $500.000 COP</option>
-            <option value="$500.000–$1.000.000 COP">$500.000–$1.000.000 COP</option>
-            <option value="$1.000.000–$2.000.000 COP">$1.000.000–$2.000.000 COP</option>
-            <option value="Más de $2.000.000 COP">Más de $2.000.000 COP</option>
+            <option value="$500.000 - $900.000 COP">$500.000 — $900.000 COP</option>
+            <option value="Más de $900.000 COP">Más de $900.000 COP</option>
           </select>
-
-          <label for="detalles">Cuéntanos sobre tu idea</label>
-          <textarea id="detalles" name="detalles" rows="3" placeholder="¿Qué quieres crear y qué objetivo buscas?"></textarea>
-
-          <button class="button button-primary form-submit" type="submit">Preparar mensaje <span>↗</span></button>
-          <p class="form-privacy">Al continuar, se abrirá WhatsApp con los datos que escribiste para que puedas revisarlos y enviarlos.</p>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          
+          <label for="detalles">Cuéntanos sobre tu proyecto</label>
+          <textarea id="detalles" name="detalles" placeholder="Describe tu idea, qué necesitas, a quién va dirigido y cualquier detalle que quieras compartir."></textarea>
+          
+          <button type="submit" class="button button-primary form-submit">
+            <span>↗</span>
+            Enviar solicitud
+          </button>
+          
+          <p class="form-privacy">
+            Al enviar, se abrirá WhatsApp con el mensaje listo para que lo revises y envíes. No compartiremos tus datos con terceros.
+          </p>
+          <p id="form-status" class="form-status"></p>
         </form>
       </div>
     </section>
 
     <section class="closing section-shell">
-      <p class="closing-overline reveal">EL FUTURO DE TU MARCA ES UNA DECISIÓN.</p>
-      <h2 class="reveal">Hagamos que <em>se note.</em></h2>
-      <a href="#contacto" class="closing-link reveal">HABLEMOS DE TU PROYECTO <span>↗</span></a>
+      <p class="closing-overline">GRACIAS POR TU TIEMPO</p>
+      <h2>Construyamos algo <em>juntos</em>.</h2>
+      <a href="#contacto" class="closing-link">
+        <span>↓</span>
+        Volver arriba
+      </a>
     </section>
   </main>
 
   <footer class="footer section-shell">
-    <a class="brand footer-brand" href="#inicio">
-      <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>NEXO<span class="brand-light">® STUDIO</span></span>
-    </a>
-    <p>Diseño y desarrollo digital con intención.</p>
-    <div class="footer-links">
-      <a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a>
-      <a href="#" id="footer-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> NEXO STUDIO. TODOS LOS DERECHOS RESERVADOS.</span>
-      <a href="#inicio">VOLVER ARRIBA ↑</a>
+    <div>
+      <p class="brand footer-brand">
+        <span class="brand-symbol">
+          <i></i><i></i><i></i>
+        </span>
+        NEXO STUDIO
+      </p>
+      <p class="footer-bottom">
+        <span>© <span id="year-footer">2026</span> — Diseño y desarrollo web hecho con cuidado en Colombia.</span>
+        <span>
+          <a href="https://wa.me/573204273991" target="_blank" rel="noopener">WhatsApp</a>
+          ·
+          <a href="#" target="_blank" rel="noopener">Instagram</a>
+        </span>
+      </p>
     </div>
   </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
