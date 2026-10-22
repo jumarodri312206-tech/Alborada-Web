@@ -5,7 +5,7 @@
    NEXO STUDIO — CONFIGURACIÓN
    ========================================================= */
 
-// WhatsApp con indicativo del país, sin + ni espacios.
+// Número de WhatsApp internacional, sin + ni espacios.
 const WHATSAPP_NUMBER = "573204273991";
 
 const $ = (selector, context = document) =>
@@ -18,9 +18,9 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
 
-const supportsPointerMotion =
-  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-  window.matchMedia("(min-width: 721px)").matches;
+const desktopPointer = window.matchMedia(
+  "(hover: hover) and (pointer: fine) and (min-width: 721px)"
+);
 
 /* =========================================================
    WHATSAPP
@@ -30,7 +30,9 @@ function getWhatsAppUrl(message) {
   const number = String(WHATSAPP_NUMBER).replace(/\D/g, "");
 
   if (!number || number.length < 10 || number.length > 15) {
-    console.error("Nexo Studio: revisa WHATSAPP_NUMBER.");
+    console.error(
+      "Nexo Studio: revisa el número configurado en WHATSAPP_NUMBER."
+    );
     return null;
   }
 
@@ -41,11 +43,13 @@ function openWhatsApp(message) {
   const url = getWhatsAppUrl(message);
 
   if (!url) {
-    alert("No se pudo preparar WhatsApp. Revisa el número en script.js.");
+    alert(
+      "No se pudo preparar WhatsApp. Revisa el número comercial en script.js."
+    );
     return;
   }
 
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.location.href = url;
 }
 
 const generalMessage =
@@ -62,7 +66,6 @@ function configureWhatsAppLink(element, message) {
     element.rel = "noopener noreferrer";
   } else {
     element.href = "#";
-
     element.addEventListener("click", (event) => {
       event.preventDefault();
       openWhatsApp(message);
@@ -152,7 +155,10 @@ updateHeader();
 
 const revealElements = $$(".reveal");
 
-if ("IntersectionObserver" in window && !reduceMotion.matches) {
+if (
+  "IntersectionObserver" in window &&
+  !reduceMotion.matches
+) {
   const revealObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
@@ -178,7 +184,7 @@ if ("IntersectionObserver" in window && !reduceMotion.matches) {
 }
 
 /* =========================================================
-   ESCENA 3D DE LA PORTADA
+   MALLA 3D DE LA PORTADA
    ========================================================= */
 
 const artScene = $("#art-scene");
@@ -187,7 +193,7 @@ const heroArt = $(".hero-art");
 if (
   artScene &&
   heroArt &&
-  supportsPointerMotion &&
+  desktopPointer.matches &&
   !reduceMotion.matches
 ) {
   let framePending = false;
@@ -199,8 +205,11 @@ if (
 
     if (!rect.width || !rect.height) return;
 
-    pointerX = (event.clientX - rect.left) / rect.width - 0.5;
-    pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+    pointerX =
+      (event.clientX - rect.left) / rect.width - 0.5;
+
+    pointerY =
+      (event.clientY - rect.top) / rect.height - 0.5;
 
     if (framePending) return;
 
@@ -208,15 +217,15 @@ if (
 
     window.requestAnimationFrame(() => {
       artScene.style.transform =
-        `rotateX(${-pointerY * 6}deg) ` +
-        `rotateY(${pointerX * 8}deg)`;
+        `rotateX(${-pointerY * 5}deg) ` +
+        `rotateY(${pointerX * 7}deg)`;
 
       framePending = false;
     });
   });
 
   heroArt.addEventListener("pointerleave", () => {
-    artScene.style.transform = "rotateX(0deg) rotateY(0deg)";
+    artScene.style.transform = "";
   });
 }
 
@@ -228,7 +237,7 @@ const cursorGlow = $(".cursor-glow");
 
 if (
   cursorGlow &&
-  supportsPointerMotion &&
+  desktopPointer.matches &&
   !reduceMotion.matches
 ) {
   window.addEventListener(
@@ -245,11 +254,8 @@ if (
    ENLACES DIRECTOS DE WHATSAPP
    ========================================================= */
 
-const directWhatsApp = $("#direct-whatsapp");
-const footerWhatsApp = $("#footer-whatsapp");
-
-configureWhatsAppLink(directWhatsApp, generalMessage);
-configureWhatsAppLink(footerWhatsApp, generalMessage);
+configureWhatsAppLink($("#direct-whatsapp"), generalMessage);
+configureWhatsAppLink($("#footer-whatsapp"), generalMessage);
 
 /* =========================================================
    BOTONES DE PAQUETES
@@ -274,33 +280,36 @@ $$(".choose-plan").forEach((button) => {
    BOTONES DE SERVICIOS
    ========================================================= */
 
+const serviceMappings = {
+  "Estrategia digital": "No lo tengo definido",
+  "Diseño de experiencias": "Diseño visual",
+  "Desarrollo web": "Web corporativa"
+};
+
 $$("[data-service]").forEach((link) => {
   link.addEventListener("click", () => {
     const service = link.dataset.service;
     const serviceSelect = $("#servicio");
+    const detailsField = $("#detalles");
 
-    if (!service || !serviceSelect) return;
+    if (!service) return;
 
-    const option = Array.from(serviceSelect.options).find(
-      (item) => item.value.toLowerCase() === service.toLowerCase()
-    );
+    if (serviceSelect) {
+      const desiredValue =
+        serviceMappings[service] || service;
 
-    if (option) {
-      serviceSelect.value = option.value;
-    } else if (service.toLowerCase().includes("estrategia")) {
-      const alternative = Array.from(serviceSelect.options).find(
-        (item) => item.textContent.toLowerCase().includes("definido")
-      );
+      const option = Array.from(
+        serviceSelect.options
+      ).find((item) => item.value === desiredValue);
 
-      if (alternative) {
-        serviceSelect.value = alternative.value;
+      if (option) {
+        serviceSelect.value = option.value;
       }
     }
 
-    const detailsField = $("#detalles");
-
     if (detailsField && !detailsField.value.trim()) {
-      detailsField.value = `Me interesa el servicio de ${service}.`;
+      detailsField.value =
+        `Me interesa el servicio de ${service}.`;
     }
   });
 });
@@ -314,7 +323,7 @@ $$("[data-project]").forEach((project) => {
     const name = project.dataset.project;
     const detailsField = $("#detalles");
 
-    if (!detailsField) return;
+    if (!detailsField || !name) return;
 
     detailsField.value =
       `Me interesa un proyecto similar a la referencia "${name}". ` +
@@ -337,13 +346,25 @@ if (contactForm) {
 
     const formData = new FormData(contactForm);
 
-    const name = String(formData.get("nombre") || "").trim();
-    const email = String(formData.get("correo") || "").trim();
-    const service = String(formData.get("servicio") || "").trim();
+    const name = String(
+      formData.get("nombre") || ""
+    ).trim();
+
+    const email = String(
+      formData.get("correo") || ""
+    ).trim();
+
+    const service = String(
+      formData.get("servicio") || ""
+    ).trim();
+
     const budget = String(
       formData.get("presupuesto") || "Por definir"
     ).trim();
-    const details = String(formData.get("detalles") || "").trim();
+
+    const details = String(
+      formData.get("detalles") || ""
+    ).trim();
 
     const message = [
       "Hola, Nexo Studio. Quiero solicitar una propuesta para mi proyecto web.",
@@ -364,7 +385,7 @@ if (contactForm) {
     if (!url) {
       if (formStatus) {
         formStatus.textContent =
-          "No se pudo preparar WhatsApp. Revisa la configuración.";
+          "No se pudo preparar el enlace de WhatsApp. Revisa la configuración.";
       }
 
       return;
@@ -375,7 +396,7 @@ if (contactForm) {
         "Abriendo WhatsApp. Revisa el mensaje y envíalo para completar la solicitud.";
     }
 
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.location.href = url;
   });
 }
 
@@ -438,4 +459,6 @@ $$(".project-image img").forEach((img) => {
 
 document.documentElement.classList.add("js-ready");
 
-console.info("Nexo Studio: interfaz inicializada correctamente.");
+console.info(
+  "Nexo Studio: interfaz inicializada correctamente."
+);
