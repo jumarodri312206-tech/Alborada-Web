@@ -2,141 +2,331 @@
 "use strict";
 
 /* =========================================================
-   NEXO STUDIO — CONFIGURACIÓN
+   NEXO STUDIO — CONFIGURACIÓN GENERAL
    ========================================================= */
 
-// Reemplaza este número por el WhatsApp comercial de tu agencia.
-// Incluye el indicativo del país, sin +, espacios ni guiones.
-// Ejemplo Colombia: 573001234567
+/*
+  IMPORTANTE:
+  Sustituye este número por tu WhatsApp comercial real.
+  Colombia: 57 + número de celular.
+  No uses +, espacios, paréntesis ni guiones.
+*/
 const WHATSAPP_NUMBER = "573001234567";
+
+const $ = (selector, context = document) =>
+  context.querySelector(selector);
+
+const $$ = (selector, context = document) =>
+  Array.from(context.querySelectorAll(selector));
+
+const reduceMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+);
 
 
 /* =========================================================
-   UTILIDADES
+   AÑO AUTOMÁTICO
    ========================================================= */
 
-const seleccionar = (selector, contexto = document) =>
-  contexto.querySelector(selector);
+const yearElement = $("#year");
 
-const seleccionarTodos = (selector, contexto = document) =>
-  [...contexto.querySelectorAll(selector)];
+if (yearElement) {
+  yearElement.textContent = new Date().getFullYear();
+}
 
 
 /* =========================================================
    MENÚ RESPONSIVE
    ========================================================= */
 
-const botonMenu = seleccionar(".menu");
-const navegacion = seleccionar(".header nav");
+const menuButton = $(".menu");
+const navigation = $("#nav");
 
-function cerrarMenu() {
-  if (!botonMenu || !navegacion) return;
+function closeMenu() {
+  if (!menuButton || !navigation) return;
 
-  navegacion.classList.remove("open");
+  navigation.classList.remove("open");
   document.body.classList.remove("menu-open");
-  botonMenu.setAttribute("aria-expanded", "false");
-  botonMenu.setAttribute("aria-label", "Abrir menú");
-  botonMenu.textContent = "☰";
+
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "Abrir menú");
 }
 
-if (botonMenu && navegacion) {
-  botonMenu.setAttribute("aria-expanded", "false");
-  botonMenu.setAttribute("aria-label", "Abrir menú");
+if (menuButton && navigation) {
+  menuButton.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
 
-  botonMenu.addEventListener("click", () => {
-    const estaAbierto = navegacion.classList.toggle("open");
-
-    document.body.classList.toggle("menu-open", estaAbierto);
-    botonMenu.setAttribute("aria-expanded", String(estaAbierto));
-    botonMenu.setAttribute(
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    menuButton.setAttribute(
       "aria-label",
-      estaAbierto ? "Cerrar menú" : "Abrir menú"
+      isOpen ? "Abrir menú" : "Cerrar menú"
     );
 
-    botonMenu.textContent = estaAbierto ? "×" : "☰";
+    navigation.classList.toggle("open", !isOpen);
+    document.body.classList.toggle("menu-open", !isOpen);
   });
 
-  seleccionarTodos("a", navegacion).forEach((enlace) => {
-    enlace.addEventListener("click", cerrarMenu);
+  $$("a", navigation).forEach((link) => {
+    link.addEventListener("click", closeMenu);
   });
 
-  document.addEventListener("keydown", (evento) => {
-    if (evento.key === "Escape") {
-      cerrarMenu();
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
     }
   });
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 720) {
-      cerrarMenu();
+      closeMenu();
     }
   });
 }
 
 
 /* =========================================================
-   AÑO AUTOMÁTICO EN EL FOOTER
+   HEADER: ESTADO AL DESPLAZARSE
    ========================================================= */
 
-const elementoAnio = seleccionar("#year");
+const header = $("#header");
 
-if (elementoAnio) {
-  elementoAnio.textContent = new Date().getFullYear();
+function updateHeader() {
+  if (!header) return;
+
+  header.classList.toggle("header-scrolled", window.scrollY > 25);
+}
+
+window.addEventListener("scroll", updateHeader, { passive: true });
+updateHeader();
+
+
+/* =========================================================
+   ANIMACIONES DE ENTRADA
+   ========================================================= */
+
+const revealElements = $$(".reveal");
+
+if ("IntersectionObserver" in window && !reduceMotion.matches) {
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -35px 0px"
+    }
+  );
+
+  revealElements.forEach((element) => {
+    revealObserver.observe(element);
+  });
+} else {
+  revealElements.forEach((element) => {
+    element.classList.add("visible");
+  });
 }
 
 
 /* =========================================================
-   ENLACES DE WHATSAPP
+   MOVIMIENTO 3D DE LA PORTADA
    ========================================================= */
 
-function crearEnlaceWhatsApp(mensaje) {
-  const numero = WHATSAPP_NUMBER.replace(/\D/g, "");
+const artScene = $("#art-scene");
+const heroArt = $(".hero-art");
 
-  if (!numero || numero.length < 10) {
-    alert(
-      "Configura primero el número de WhatsApp comercial en script.js."
-    );
-    return null;
-  }
+const supportsPointerMotion = window.matchMedia(
+  "(hover: hover) and (pointer: fine)"
+).matches;
 
-  return (
-    "https://wa.me/" +
-    numero +
-    "?text=" +
-    encodeURIComponent(mensaje)
+if (
+  artScene &&
+  heroArt &&
+  supportsPointerMotion &&
+  !reduceMotion.matches
+) {
+  let framePending = false;
+  let pointerX = 0;
+  let pointerY = 0;
+
+  heroArt.addEventListener("pointermove", (event) => {
+    const rect = heroArt.getBoundingClientRect();
+
+    pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+    pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    if (framePending) return;
+
+    framePending = true;
+
+    window.requestAnimationFrame(() => {
+      const rotateY = pointerX * 10;
+      const rotateX = pointerY * -8;
+
+      artScene.style.transform =
+        `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      framePending = false;
+    });
+  });
+
+  heroArt.addEventListener("pointerleave", () => {
+    artScene.style.transform = "rotateX(0deg) rotateY(0deg)";
+  });
+}
+
+
+/* =========================================================
+   BRILLO AMBIENTAL DEL CURSOR
+   ========================================================= */
+
+const cursorGlow = $(".cursor-glow");
+
+if (
+  cursorGlow &&
+  supportsPointerMotion &&
+  !reduceMotion.matches
+) {
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      cursorGlow.style.left = `${event.clientX}px`;
+      cursorGlow.style.top = `${event.clientY}px`;
+    },
+    { passive: true }
   );
 }
 
-function abrirWhatsApp(mensaje) {
-  const enlace = crearEnlaceWhatsApp(mensaje);
 
-  if (!enlace) return;
+/* =========================================================
+   WHATSAPP — CONSTRUCCIÓN DE ENLACES
+   ========================================================= */
 
-  window.open(enlace, "_blank", "noopener,noreferrer");
+function getWhatsAppUrl(message) {
+  const number = WHATSAPP_NUMBER.replace(/\D/g, "");
+
+  if (!number || number.length < 10 || number === "573001234567") {
+    alert(
+      "Antes de usar WhatsApp, abre script.js y configura el número comercial de Nexo Studio."
+    );
+
+    return null;
+  }
+
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
+
+function openWhatsApp(message) {
+  const url = getWhatsAppUrl(message);
+
+  if (!url) return;
+
+  // Navegación en la misma pestaña para evitar bloqueadores de ventanas.
+  window.location.href = url;
+}
+
+
+/* =========================================================
+   WHATSAPP DIRECTO
+   ========================================================= */
+
+const directWhatsApp = $("#direct-whatsapp");
+const footerWhatsApp = $("#footer-whatsapp");
+
+const generalMessage =
+  "Hola, Nexo Studio. Quiero hablar sobre un proyecto web. " +
+  "¿Podrían darme información sobre sus servicios y el proceso de trabajo?";
+
+function configureWhatsAppLink(element, message) {
+  if (!element) return;
+
+  const url = getWhatsAppUrl(message);
+
+  if (url) {
+    element.href = url;
+  } else {
+    element.href = "#contacto";
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      openWhatsApp(message);
+    });
+  }
+}
+
+configureWhatsAppLink(directWhatsApp, generalMessage);
+configureWhatsAppLink(footerWhatsApp, generalMessage);
 
 
 /* =========================================================
    BOTONES DE LOS PAQUETES
    ========================================================= */
 
-// Los botones con clase .elegir-plan pueden tener un atributo
-// data-plan con el nombre del paquete que se quiere consultar.
+$$(".choose-plan").forEach((button) => {
+  button.addEventListener("click", () => {
+    const plan = button.dataset.plan || "Personalizado";
 
-seleccionarTodos(".elegir-plan").forEach((boton) => {
-  boton.addEventListener("click", (evento) => {
-    evento.preventDefault();
+    const message = [
+      "Hola, Nexo Studio.",
+      "",
+      `Me interesa el paquete ${plan}.`,
+      "Me gustaría conocer qué incluye, el tiempo estimado de entrega y las condiciones de contratación."
+    ].join("\n");
 
-    const plan =
-      boton.dataset.plan ||
-      boton.closest(".price")?.querySelector("h3")?.textContent?.trim() ||
-      "Personalizado";
+    openWhatsApp(message);
+  });
+});
 
-    const mensaje =
-      `Hola, Nexo Studio. Estoy interesado/a en el paquete "${plan}". ` +
-      "Me gustaría conocer los detalles, tiempos de entrega y proceso de contratación.";
 
-    abrirWhatsApp(mensaje);
+/* =========================================================
+   BOTONES DE SERVICIOS
+   ========================================================= */
+
+$$("[data-service]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const service = link.dataset.service;
+    const serviceSelect = $("#servicio");
+
+    if (!serviceSelect) return;
+
+    const option = Array.from(serviceSelect.options).find(
+      (item) => item.value.toLowerCase() === service.toLowerCase()
+    );
+
+    if (option) {
+      serviceSelect.value = option.value;
+    } else if (service.toLowerCase().includes("estrategia")) {
+      serviceSelect.value = "No lo tengo definido";
+    }
+
+    const detailsField = $("#detalles");
+
+    if (detailsField && !detailsField.value.trim()) {
+      detailsField.value = `Me interesa el servicio de ${service}.`;
+    }
+  });
+});
+
+
+/* =========================================================
+   PORTAFOLIO: PREPARAR UNA CONSULTA SOBRE UN PROYECTO
+   ========================================================= */
+
+$$("[data-project]").forEach((project) => {
+  project.addEventListener("click", (event) => {
+    // Los proyectos son ejemplos visuales y dirigen al formulario.
+    // No se presenta una demostración ficticia como si fuera un cliente real.
+    const name = project.dataset.project;
+    const detailsField = $("#detalles");
+
+    if (detailsField) {
+      detailsField.value =
+        `Me interesa un proyecto similar a la referencia "${name}". ` +
+        "Quiero conversar sobre una propuesta adaptada a mi marca.";
+    }
   });
 });
 
@@ -145,108 +335,56 @@ seleccionarTodos(".elegir-plan").forEach((boton) => {
    FORMULARIO DE CONTACTO
    ========================================================= */
 
-const formulario = seleccionar("#contact-form");
+const contactForm = $("#contact-form");
+const formStatus = $("#form-status");
 
-if (formulario) {
-  formulario.addEventListener("submit", (evento) => {
-    evento.preventDefault();
+if (contactForm) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-    if (!formulario.reportValidity()) {
+    if (!contactForm.reportValidity()) {
       return;
     }
 
-    const datos = new FormData(formulario);
+    const formData = new FormData(contactForm);
 
-    const nombre = String(datos.get("nombre") || "").trim();
-    const correo = String(datos.get("correo") || "").trim();
-    const servicio = String(datos.get("servicio") || "").trim();
-    const presupuesto = String(datos.get("presupuesto") || "").trim();
-    const detalles = String(datos.get("detalles") || "").trim();
+    const name = String(formData.get("nombre") || "").trim();
+    const email = String(formData.get("correo") || "").trim();
+    const service = String(formData.get("servicio") || "").trim();
+    const budget = String(formData.get("presupuesto") || "Por definir").trim();
+    const details = String(formData.get("detalles") || "").trim();
 
-    const mensaje = [
-      "Hola, Nexo Studio. Quiero solicitar información para un proyecto web.",
+    const message = [
+      "Hola, Nexo Studio. Quiero solicitar una propuesta para mi proyecto web.",
       "",
-      `Nombre: ${nombre}`,
-      `Correo: ${correo}`,
-      `Servicio: ${servicio || "Por definir"}`,
-      `Presupuesto aproximado: ${presupuesto || "Por definir"}`,
+      `Nombre: ${name}`,
+      `Correo: ${email}`,
+      `Servicio: ${service}`,
+      `Presupuesto aproximado: ${budget}`,
       "",
       "Detalles del proyecto:",
-      detalles || "Quiero conversar sobre mi idea."
+      details || "Me gustaría recibir asesoría para definir mi proyecto.",
+      "",
+      "Quedo atento/a a su respuesta."
     ].join("\n");
 
-    abrirWhatsApp(mensaje);
-  });
-}
+    const url = getWhatsAppUrl(message);
 
+    if (!url) {
+      if (formStatus) {
+        formStatus.textContent =
+          "Configura tu número de WhatsApp en script.js para activar el envío.";
+      }
 
-/* =========================================================
-   ANIMACIONES AL DESPLAZARSE
-   ========================================================= */
-
-// Si el navegador no soporta IntersectionObserver, los elementos
-// permanecen visibles normalmente.
-
-const elementosAnimados = seleccionarTodos(
-  ".service, .project, .price, .steps article"
-);
-
-if ("IntersectionObserver" in window) {
-  const observador = new IntersectionObserver(
-    (entradas, observer) => {
-      entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
-          entrada.target.classList.add("visible");
-          observer.unobserve(entrada.target);
-        }
-      });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -25px 0px"
+      return;
     }
-  );
 
-  elementosAnimados.forEach((elemento) => {
-    elemento.classList.add("reveal");
-    observador.observe(elemento);
-  });
-}
+    if (formStatus) {
+      formStatus.textContent =
+        "Abriendo WhatsApp. Revisa el mensaje y envíalo para completar la solicitud.";
+    }
 
-
-/* =========================================================
-   EFECTO 3D SUAVE CON EL RATÓN
-   ========================================================= */
-
-// Solo se activa en dispositivos que disponen de ratón.
-// El movimiento es sutil y no modifica el diseño en móviles.
-
-const escena3D = seleccionar(".art");
-const prefiereMovimientoReducido = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-);
-
-if (
-  escena3D &&
-  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-  !prefiereMovimientoReducido.matches
-) {
-  escena3D.addEventListener("mousemove", (evento) => {
-    const rectangulo = escena3D.getBoundingClientRect();
-
-    const x = (evento.clientX - rectangulo.left) / rectangulo.width;
-    const y = (evento.clientY - rectangulo.top) / rectangulo.height;
-
-    const rotacionY = (x - 0.5) * 5;
-    const rotacionX = (0.5 - y) * 5;
-
-    escena3D.style.transform =
-      `perspective(1000px) rotateX(${rotacionX}deg) rotateY(${rotacionY}deg)`;
-  });
-
-  escena3D.addEventListener("mouseleave", () => {
-    escena3D.style.transform =
-      "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+    window.location.href = url;
   });
 }
 
@@ -255,35 +393,57 @@ if (
    NAVEGACIÓN SUAVE
    ========================================================= */
 
-seleccionarTodos('a[href^="#"]').forEach((enlace) => {
-  enlace.addEventListener("click", (evento) => {
-    const destino = enlace.getAttribute("href");
+$$('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetId = link.getAttribute("href");
 
-    if (!destino || destino === "#") return;
+    if (!targetId || targetId === "#") {
+      event.preventDefault();
+      return;
+    }
 
-    const seccion = seleccionar(destino);
+    const target = $(targetId);
 
-    if (!seccion) return;
+    if (!target) return;
 
-    evento.preventDefault();
+    event.preventDefault();
 
-    seccion.scrollIntoView({
-      behavior: prefiereMovimientoReducido.matches ? "auto" : "smooth",
+    target.scrollIntoView({
+      behavior: reduceMotion.matches ? "auto" : "smooth",
       block: "start"
     });
 
-    // Actualiza el fragmento de la URL sin provocar un salto brusco.
     if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, "", destino);
+      window.history.replaceState(null, "", targetId);
     }
   });
 });
 
 
 /* =========================================================
-   MENSAJE DE CONSOLA
+   IMÁGENES: TRATAMIENTO DE ERRORES
    ========================================================= */
 
+$$(".project-image img").forEach((img) => {
+  img.addEventListener("error", () => {
+    // Mantiene el fondo visual del proyecto si una imagen externa falla.
+    img.style.opacity = "0";
+    const parent = img.closest(".project-image");
+
+    if (parent) {
+      parent.style.background =
+        "radial-gradient(ellipse at 50% 40%, #23432e, #0b100d 72%)";
+    }
+  });
+});
+
+
+/* =========================================================
+   INICIALIZACIÓN
+   ========================================================= */
+
+document.documentElement.classList.add("js-ready");
+
 console.info(
-  "Nexo Studio | Sitio inicializado correctamente."
+  "Nexo Studio: interfaz inicializada correctamente."
 );
