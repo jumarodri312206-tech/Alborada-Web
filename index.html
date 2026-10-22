@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080b0a">
   <meta name="description" content="Nexo Studio diseña y desarrolla páginas web modernas, estratégicas y personalizadas para marcas y negocios.">
+  <meta name="color-scheme" content="dark">
   <title>Nexo Studio | Diseño y desarrollo web</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +27,8 @@
     </a>
 
     <button class="menu-toggle" type="button"
-      aria-label="Abrir menú" aria-expanded="false">
+      aria-label="Abrir menú" aria-expanded="false"
+      aria-controls="nav-principal">
       <span></span><span></span>
     </button>
 
@@ -42,7 +45,8 @@
     <!-- PORTADA -->
     <section class="hero wrap" id="inicio">
       <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="status-dot"></span>
+        <p class="eyebrow">
+          <span class="status-dot"></span>
           ESTUDIO DIGITAL INDEPENDIENTE · 2026
         </p>
 
@@ -72,10 +76,10 @@
         </div>
       </div>
 
-      <!-- Malla visual integrada: no usa anillos ni figuras circulares -->
-      <div class="hero-art" id="hero-art" aria-label="Animación abstracta de una malla digital">
+      <!-- ESCENA 3D -->
+      <div class="hero-art" id="hero-art" aria-label="Animación abstracta 3D de Nexo Studio">
         <div class="art-glow"></div>
-        <canvas id="mesh-canvas" aria-hidden="true"></canvas>
+        <div id="three-container" aria-hidden="true"></div>
 
         <div class="art-label art-label-top">
           <span class="mini-dot"></span>
@@ -100,6 +104,7 @@
       </div>
     </section>
 
+    <!-- CINTA -->
     <div class="ticker" aria-hidden="true">
       <div>
         WEB DESIGN <span>✳</span> DEVELOPMENT <span>✳</span>
@@ -219,7 +224,10 @@
             <span class="project-open">↗</span>
           </a>
           <div class="project-info">
-            <div><h3>Alborada</h3><p>Catálogo digital · Chocolatería artesanal</p></div>
+            <div>
+              <h3>Alborada</h3>
+              <p>Catálogo digital · Chocolatería artesanal</p>
+            </div>
             <span class="project-type">01</span>
           </div>
         </article>
@@ -237,7 +245,10 @@
             <span class="project-open">↗</span>
           </a>
           <div class="project-info">
-            <div><h3>Proyecto Comercial</h3><p>Concepto demostrativo · Web corporativa</p></div>
+            <div>
+              <h3>Proyecto Comercial</h3>
+              <p>Concepto demostrativo · Web corporativa</p>
+            </div>
             <span class="project-type">02</span>
           </div>
         </article>
@@ -255,7 +266,10 @@
             <span class="project-open">↗</span>
           </a>
           <div class="project-info">
-            <div><h3>Proyecto Personal</h3><p>Concepto demostrativo · Portafolio creativo</p></div>
+            <div>
+              <h3>Proyecto Personal</h3>
+              <p>Concepto demostrativo · Portafolio creativo</p>
+            </div>
             <span class="project-type">03</span>
           </div>
         </article>
@@ -270,7 +284,10 @@
     <!-- MANIFIESTO -->
     <section class="manifesto">
       <div class="wrap manifesto-inner reveal">
-        <p class="eyebrow"><span class="status-dot"></span> NUESTRA FILOSOFÍA</p>
+        <p class="eyebrow">
+          <span class="status-dot"></span>
+          NUESTRA FILOSOFÍA
+        </p>
         <h2>No diseñamos solo<br>para que se vea bien.<br><em>Diseñamos para que importe.</em></h2>
         <div class="manifesto-bottom">
           <span>NEXO STUDIO — DIGITAL WITH PURPOSE</span>
@@ -293,16 +310,36 @@
 
       <div class="process-list">
         <article class="process-step reveal">
-          <span>01</span><div><h3>Escuchamos</h3><p>Conocemos tu negocio, tus objetivos, tus clientes y lo que necesitas comunicar.</p></div><b>↘</b>
+          <span>01</span>
+          <div>
+            <h3>Escuchamos</h3>
+            <p>Conocemos tu negocio, tus objetivos, tus clientes y lo que necesitas comunicar.</p>
+          </div>
+          <b>↘</b>
         </article>
         <article class="process-step reveal">
-          <span>02</span><div><h3>Diseñamos</h3><p>Definimos la estructura, el estilo visual y la experiencia de navegación.</p></div><b>✳</b>
+          <span>02</span>
+          <div>
+            <h3>Diseñamos</h3>
+            <p>Definimos la estructura, el estilo visual y la experiencia de navegación.</p>
+          </div>
+          <b>✳</b>
         </article>
         <article class="process-step reveal">
-          <span>03</span><div><h3>Desarrollamos</h3><p>Construimos la página y comprobamos su adaptación a pantallas y funciones.</p></div><b>⌘</b>
+          <span>03</span>
+          <div>
+            <h3>Desarrollamos</h3>
+            <p>Construimos la página y comprobamos su adaptación a pantallas y funciones.</p>
+          </div>
+          <b>⌘</b>
         </article>
         <article class="process-step reveal">
-          <span>04</span><div><h3>Lanzamos</h3><p>Revisamos los detalles finales y te orientamos para publicar tu sitio.</p></div><b>↗</b>
+          <span>04</span>
+          <div>
+            <h3>Lanzamos</h3>
+            <p>Revisamos los detalles finales y te orientamos para publicar tu sitio.</p>
+          </div>
+          <b>↗</b>
         </article>
       </div>
     </section>
@@ -324,7 +361,11 @@
           <span class="price-index">01 / STARTER</span>
           <h3>Presencia esencial</h3>
           <p>Para profesionales y emprendimientos que necesitan presentarse con claridad.</p>
-          <div class="price"><small>Desde</small><strong>$650.000</strong><span>COP</span></div>
+          <div class="price">
+            <small>Desde</small>
+            <strong>$650.000</strong>
+            <span>COP</span>
+          </div>
           <ul>
             <li>Landing page de una página</li>
             <li>Diseño adaptable a móviles</li>
@@ -340,7 +381,11 @@
           <span class="price-index">02 / SIGNATURE</span>
           <h3>Experiencia de marca</h3>
           <p>Para negocios que buscan una presencia más completa, distintiva y memorable.</p>
-          <div class="price"><small>Desde</small><strong>$1.400.000</strong><span>COP</span></div>
+          <div class="price">
+            <small>Desde</small>
+            <strong>$1.400.000</strong>
+            <span>COP</span>
+          </div>
           <ul>
             <li>Hasta 5 secciones o páginas</li>
             <li>Dirección visual personalizada</li>
@@ -356,7 +401,11 @@
           <span class="price-index">03 / IMMERSIVE</span>
           <h3>Digital premium</h3>
           <p>Para marcas que buscan una experiencia visual avanzada y funciones a medida.</p>
-          <div class="price"><small>Desde</small><strong>$2.800.000</strong><span>COP</span></div>
+          <div class="price">
+            <small>Desde</small>
+            <strong>$2.800.000</strong>
+            <span>COP</span>
+          </div>
           <ul>
             <li>Diseño avanzado y motion</li>
             <li>Transiciones e interacción premium</li>
@@ -382,12 +431,17 @@
         <div class="contact-decoration" aria-hidden="true"></div>
 
         <div class="contact-copy">
-          <p class="eyebrow"><span class="status-dot"></span> EL SIGUIENTE PASO EMPIEZA AQUÍ</p>
+          <p class="eyebrow">
+            <span class="status-dot"></span>
+            EL SIGUIENTE PASO EMPIEZA AQUÍ
+          </p>
           <h2>Hagamos algo<br><em>extraordinario.</em></h2>
           <p>Cuéntanos qué tienes en mente. Prepararemos un mensaje para iniciar la conversación y conocer tu proyecto.</p>
           <div class="contact-meta">
-            <span>UBICACIÓN</span><strong>Colombia · Soacha / Bogotá</strong>
-            <span>CONTACTO</span><strong>WhatsApp directo</strong>
+            <span>UBICACIÓN</span>
+            <strong>Colombia · Soacha / Bogotá</strong>
+            <span>CONTACTO</span>
+            <strong>WhatsApp directo</strong>
           </div>
         </div>
 
@@ -436,6 +490,7 @@
     </section>
   </main>
 
+  <!-- PIE DE PÁGINA -->
   <footer class="footer">
     <div class="wrap footer-top">
       <a class="brand" href="#inicio">
@@ -452,9 +507,15 @@
     </div>
   </footer>
 
-  <a class="floating-whatsapp" id="whatsapp-float" href="https://wa.me/573204273991"
-    target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
-    <span class="whatsapp-symbol">✆</span><span>Hablemos</span>
+  <a class="floating-whatsapp" id="whatsapp-float"
+    href="https://wa.me/573204273991"
+    target="_blank" rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp">
+    <span class="whatsapp-symbol">✆</span>
+    <span>Hablemos</span>
   </a>
+
+  <!-- La escena 3D se carga como módulo independiente. -->
+  <script type="module" src="three-hero.js"></script>
 </body>
 </html>
