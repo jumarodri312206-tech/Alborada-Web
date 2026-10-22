@@ -1,3 +1,4 @@
+
 :root {
   --bg: #080b0a;
   --panel: #101512;
@@ -225,7 +226,6 @@ button {
 .art-coordinates,
 .art-card-index,
 .art-card-bottom,
-.art-coordinates,
 .hero-foot,
 .price-index,
 .portfolio-note,
@@ -360,19 +360,28 @@ button {
 .art-glow {
   position: absolute;
   inset: 8% 5%;
+  z-index: 0;
   background: radial-gradient(ellipse, rgba(200, 255, 61, .09), transparent 65%);
   filter: blur(15px);
   pointer-events: none;
 }
 
-#mesh-canvas {
+/* CONTENEDOR DE THREE.JS */
+
+#three-container {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  display: block;
-  z-index: 1;
+  overflow: hidden;
   pointer-events: none;
+}
+
+#three-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .art-label {
@@ -466,6 +475,8 @@ button {
   bottom: 23%;
   left: 13%;
 }
+
+/* PIE DE PORTADA */
 
 .hero-foot {
   grid-column: 1 / -1;
