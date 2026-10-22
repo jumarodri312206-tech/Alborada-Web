@@ -98,6 +98,45 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
   let targetX = 0;
   let targetY = 0;
 
+  // AJUSTES RESPONSIVOS:
+  // Solo cambian en celular; el computador conserva sus valores originales.
+  function updateResponsiveLayout() {
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobile) {
+      // Aumenta el tamaño de la figura únicamente en celular.
+      sculpture.scale.set(1.3, 1.3, 1.3);
+      wireframe.scale.set(1.3, 1.3, 1.3);
+
+      // Desplaza la figura hacia la derecha para que se vea
+      // alrededor de la tarjeta, en lugar de quedar detrás de ella.
+      sculpture.position.set(0.55, -0.05, 0);
+      wireframe.position.set(0.55, -0.05, 0);
+
+      // Acerca la cámara para evitar el efecto de bolita pequeña.
+      camera.position.z = 5.1;
+    } else {
+      // Valores originales para escritorio.
+      sculpture.scale.set(1, 1, 1);
+      wireframe.scale.set(1, 1, 1);
+
+      sculpture.position.set(0, 0, 0);
+      wireframe.position.set(0, 0, 0);
+
+      camera.position.z = 6.0;
+    }
+
+    if (!width || !height) return;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height, false);
+    render();
+  }
+
   // DIBUJAR LA ESCENA
   function render() {
     if (!disposed) {
@@ -108,26 +147,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
   // ADAPTAR LA ESCENA AL TAMAÑO DEL CONTENEDOR
   function resize() {
     if (disposed) return;
-
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    if (!width || !height) return;
-
-    camera.aspect = width / height;
-
-    if (width < 500) {
-      camera.position.z = 6.8;
-    } else if (width < 800) {
-      camera.position.z = 6.4;
-    } else {
-      camera.position.z = 6.0;
-    }
-
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height, false);
-
-    render();
+    updateResponsiveLayout();
   }
 
   // DETENER LA ANIMACIÓN
@@ -153,11 +173,9 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
     lastTime = now;
     elapsed += delta;
 
-    // Movimiento suave siguiendo el puntero.
     pointerX += (targetX - pointerX) * 0.04;
     pointerY += (targetY - pointerY) * 0.04;
 
-    // Rotación y movimiento flotante.
     sculpture.rotation.x =
       Math.sin(elapsed * 0.45) * 0.17 + pointerY * 0.1;
 
@@ -166,10 +184,11 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
     sculpture.rotation.z =
       Math.cos(elapsed * 0.3) * 0.1;
 
+    // Conserva la posición horizontal configurada para cada pantalla.
     sculpture.position.y =
+      (window.matchMedia("(max-width: 768px)").matches ? -0.05 : 0) +
       Math.sin(elapsed * 0.7) * 0.07;
 
-    // La malla sigue el movimiento de la figura.
     wireframe.rotation.copy(sculpture.rotation);
     wireframe.rotation.y += 0.035;
     wireframe.position.copy(sculpture.position);
@@ -194,7 +213,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
     frameId = requestAnimationFrame(animate);
   }
 
-  // RESPETAR LA PREFERENCIA DE MOVIMIENTO DEL USUARIO
+  // RESPETAR LA PREFERENCIA DE MOVIMIENTO
   function updateMotionPreference() {
     stopAnimation();
 
@@ -231,6 +250,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
   if ("ResizeObserver" in window) {
     resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
+    resizeObserver.observe(art);
   } else {
     window.addEventListener("resize", resize);
   }
@@ -261,7 +281,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
     }
   });
 
-  // ESCUCHAR CAMBIOS EN LA PREFERENCIA DE MOVIMIENTO
+  // PREFERENCIA DE MOVIMIENTO
   if (typeof reducedMotion.addEventListener === "function") {
     reducedMotion.addEventListener("change", updateMotionPreference);
   }
@@ -299,4 +319,3 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
     startAnimation();
   }
 })();
-
