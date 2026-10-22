@@ -2269,43 +2269,37 @@ main,
 }
 
 
-/* =========================================
-   CORRECCIÓN DE LA PORTADA EN CELULARES
-   ========================================= */
-
+/* Corrección de la animación principal en móviles */
 @media (max-width: 720px) {
-  .hero {
+  .hero,
+  .hero-art {
+    max-width: 100%;
+    min-width: 0;
     overflow: hidden;
   }
 
   .hero-art {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    overflow: hidden;
-    perspective: 900px;
+    perspective: none !important;
+    transform: none !important;
   }
 
   #art-scene {
     width: 100%;
     max-width: 100%;
-    transform: none;
-    transform-style: preserve-3d;
+    transform: none !important;
+    animation: none !important;
+    perspective: none !important;
+  }
+
+  #art-scene *,
+  .hero-art * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 
   .hero-art img,
   #art-scene img {
     max-width: 100%;
+    height: auto;
   }
 }
-
-@media (max-width: 480px) {
-  .hero-art {
-    perspective: none;
-  }
-
-  #art-scene {
-    transform: none !important;
-  }
-}
-
