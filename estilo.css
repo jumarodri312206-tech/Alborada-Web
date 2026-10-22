@@ -290,8 +290,8 @@ main,
   background: transparent;
   border-color: var(--line-strong);
 }
-
 .button-outline:hover {
+
   color: var(--green);
   border-color: var(--green);
 }
@@ -2267,3 +2267,45 @@ main,
     transform: none;
   }
 }
+
+
+/* =========================================
+   CORRECCIÓN DE LA PORTADA EN CELULARES
+   ========================================= */
+
+@media (max-width: 720px) {
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero-art {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    perspective: 900px;
+  }
+
+  #art-scene {
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    transform-style: preserve-3d;
+  }
+
+  .hero-art img,
+  #art-scene img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-art {
+    perspective: none;
+  }
+
+  #art-scene {
+    transform: none !important;
+  }
+}
+
