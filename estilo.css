@@ -1452,11 +1452,15 @@ button {
     pointer-events: none;
   }
 
+ 
   #three-container canvas {
     display: block;
     width: 100%;
     height: 100%;
+    transform: scale(1.35) translateX(-8%);
+    transform-origin: center center;
   }
+
 
   .art-card {
     position: absolute;
