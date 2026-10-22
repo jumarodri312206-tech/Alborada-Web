@@ -5,7 +5,7 @@
    NEXO STUDIO — CONFIGURACIÓN
    ========================================================= */
 
-// Número de WhatsApp con indicativo de país, sin + ni espacios.
+// WhatsApp con indicativo del país, sin + ni espacios.
 const WHATSAPP_NUMBER = "573204273991";
 
 const $ = (selector, context = document) =>
@@ -18,6 +18,10 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
 
+const supportsPointerMotion =
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  window.matchMedia("(min-width: 721px)").matches;
+
 /* =========================================================
    WHATSAPP
    ========================================================= */
@@ -25,11 +29,8 @@ const reduceMotion = window.matchMedia(
 function getWhatsAppUrl(message) {
   const number = String(WHATSAPP_NUMBER).replace(/\D/g, "");
 
-  // Validación básica: número internacional sin símbolos.
   if (!number || number.length < 10 || number.length > 15) {
-    console.error(
-      "Nexo Studio: revisa el número configurado en WHATSAPP_NUMBER."
-    );
+    console.error("Nexo Studio: revisa WHATSAPP_NUMBER.");
     return null;
   }
 
@@ -40,13 +41,11 @@ function openWhatsApp(message) {
   const url = getWhatsAppUrl(message);
 
   if (!url) {
-    alert(
-      "No se pudo preparar WhatsApp. Revisa el número comercial en script.js."
-    );
+    alert("No se pudo preparar WhatsApp. Revisa el número en script.js.");
     return;
   }
 
-  window.location.href = url;
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 const generalMessage =
@@ -63,6 +62,7 @@ function configureWhatsAppLink(element, message) {
     element.rel = "noopener noreferrer";
   } else {
     element.href = "#";
+
     element.addEventListener("click", (event) => {
       event.preventDefault();
       openWhatsApp(message);
@@ -152,10 +152,7 @@ updateHeader();
 
 const revealElements = $$(".reveal");
 
-if (
-  "IntersectionObserver" in window &&
-  !reduceMotion.matches
-) {
+if ("IntersectionObserver" in window && !reduceMotion.matches) {
   const revealObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
@@ -181,15 +178,11 @@ if (
 }
 
 /* =========================================================
-   EFECTO 3D DE LA PORTADA
+   ESCENA 3D DE LA PORTADA
    ========================================================= */
 
 const artScene = $("#art-scene");
 const heroArt = $(".hero-art");
-
-const supportsPointerMotion = window.matchMedia(
-  "(hover: hover) and (pointer: fine)"
-).matches;
 
 if (
   artScene &&
@@ -206,11 +199,8 @@ if (
 
     if (!rect.width || !rect.height) return;
 
-    pointerX =
-      (event.clientX - rect.left) / rect.width - 0.5;
-
-    pointerY =
-      (event.clientY - rect.top) / rect.height - 0.5;
+    pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+    pointerY = (event.clientY - rect.top) / rect.height - 0.5;
 
     if (framePending) return;
 
@@ -218,16 +208,15 @@ if (
 
     window.requestAnimationFrame(() => {
       artScene.style.transform =
-        `rotateX(${-pointerY * 8}deg) ` +
-        `rotateY(${pointerX * 10}deg)`;
+        `rotateX(${-pointerY * 6}deg) ` +
+        `rotateY(${pointerX * 8}deg)`;
 
       framePending = false;
     });
   });
 
   heroArt.addEventListener("pointerleave", () => {
-    artScene.style.transform =
-      "rotateX(0deg) rotateY(0deg)";
+    artScene.style.transform = "rotateX(0deg) rotateY(0deg)";
   });
 }
 
@@ -293,17 +282,14 @@ $$("[data-service]").forEach((link) => {
     if (!service || !serviceSelect) return;
 
     const option = Array.from(serviceSelect.options).find(
-      (item) =>
-        item.value.toLowerCase() === service.toLowerCase()
+      (item) => item.value.toLowerCase() === service.toLowerCase()
     );
 
     if (option) {
       serviceSelect.value = option.value;
     } else if (service.toLowerCase().includes("estrategia")) {
-      const alternative = Array.from(
-        serviceSelect.options
-      ).find((item) =>
-        item.textContent.toLowerCase().includes("definido")
+      const alternative = Array.from(serviceSelect.options).find(
+        (item) => item.textContent.toLowerCase().includes("definido")
       );
 
       if (alternative) {
@@ -314,8 +300,7 @@ $$("[data-service]").forEach((link) => {
     const detailsField = $("#detalles");
 
     if (detailsField && !detailsField.value.trim()) {
-      detailsField.value =
-        `Me interesa el servicio de ${service}.`;
+      detailsField.value = `Me interesa el servicio de ${service}.`;
     }
   });
 });
@@ -352,25 +337,13 @@ if (contactForm) {
 
     const formData = new FormData(contactForm);
 
-    const name = String(
-      formData.get("nombre") || ""
-    ).trim();
-
-    const email = String(
-      formData.get("correo") || ""
-    ).trim();
-
-    const service = String(
-      formData.get("servicio") || ""
-    ).trim();
-
+    const name = String(formData.get("nombre") || "").trim();
+    const email = String(formData.get("correo") || "").trim();
+    const service = String(formData.get("servicio") || "").trim();
     const budget = String(
       formData.get("presupuesto") || "Por definir"
     ).trim();
-
-    const details = String(
-      formData.get("detalles") || ""
-    ).trim();
+    const details = String(formData.get("detalles") || "").trim();
 
     const message = [
       "Hola, Nexo Studio. Quiero solicitar una propuesta para mi proyecto web.",
@@ -391,7 +364,7 @@ if (contactForm) {
     if (!url) {
       if (formStatus) {
         formStatus.textContent =
-          "No se pudo preparar el enlace de WhatsApp. Revisa la configuración.";
+          "No se pudo preparar WhatsApp. Revisa la configuración.";
       }
 
       return;
@@ -402,7 +375,7 @@ if (contactForm) {
         "Abriendo WhatsApp. Revisa el mensaje y envíalo para completar la solicitud.";
     }
 
-    window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   });
 }
 
@@ -465,6 +438,4 @@ $$(".project-image img").forEach((img) => {
 
 document.documentElement.classList.add("js-ready");
 
-console.info(
-  "Nexo Studio: interfaz inicializada correctamente."
-);
+console.info("Nexo Studio: interfaz inicializada correctamente.");
