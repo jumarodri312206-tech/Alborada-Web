@@ -2269,37 +2269,133 @@ main,
 }
 
 
-/* Corrección de la animación principal en móviles */
+/* =========================================================
+   NEXO STUDIO — ESCENA 3D RESPONSIVE
+   Conserva las animaciones en móviles y evita deformaciones.
+   ========================================================= */
+
+.hero,
+.hero-art {
+  min-width: 0;
+}
+
+.hero-art {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.art-scene {
+  transform-origin: center center;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.orbit,
+.glass-object,
+.floating-ring {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
 @media (max-width: 720px) {
-  .hero,
-  .hero-art {
-    max-width: 100%;
-    min-width: 0;
+  .hero {
     overflow: hidden;
   }
 
   .hero-art {
-    perspective: none !important;
-    transform: none !important;
-  }
-
-  #art-scene {
     width: 100%;
     max-width: 100%;
-    transform: none !important;
-    animation: none !important;
-    perspective: none !important;
+    height: clamp(290px, 78vw, 350px);
+    margin-top: 10px;
+    perspective: 850px;
+    overflow: hidden;
   }
 
-  #art-scene *,
-  .hero-art * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  .art-scene {
+    inset: 0;
+    transform: none;
+    transition: none;
   }
 
-  .hero-art img,
-  #art-scene img {
-    max-width: 100%;
-    height: auto;
+  .orbit-one {
+    width: min(260px, 76vw);
+    height: min(260px, 76vw);
+    margin-top: calc(min(260px, 76vw) / -2);
+    margin-left: calc(min(260px, 76vw) / -2);
+  }
+
+  .orbit-two {
+    width: min(220px, 65vw);
+    height: min(310px, 88vw);
+    margin-top: calc(min(310px, 88vw) / -2);
+    margin-left: calc(min(220px, 65vw) / -2);
+  }
+
+  .orbit-three {
+    width: min(310px, 90vw);
+    height: min(190px, 56vw);
+    margin-top: calc(min(190px, 56vw) / -2);
+    margin-left: calc(min(310px, 90vw) / -2);
+  }
+
+  .glass-object {
+    width: 145px;
+    height: 168px;
+    margin: -84px 0 0 -72px;
+  }
+
+  .glass-face {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .art-grid {
+    inset: 0;
+    background-size: 34px 34px;
+  }
+
+  .art-halo {
+    filter: blur(42px);
+  }
+
+  .floating-label {
+    max-width: 45%;
+    font-size: 7px;
+  }
+
+  .label-top {
+    right: 5px;
+  }
+
+  .label-bottom {
+    left: 5px;
   }
 }
+
+@media (max-width: 380px) {
+  .hero-art {
+    height: 290px;
+    perspective: 700px;
+  }
+
+  .glass-object {
+    width: 125px;
+    height: 148px;
+    margin: -74px 0 0 -62px;
+  }
+
+  .floating-label {
+    font-size: 6px;
+  }
+}
+
+/* Dispositivos que solicitan menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .hero-art .art-halo,
+  .hero-art .orbit,
+  .hero-art .glass-object,
+  .hero-art .floating-ring {
+    animation: none !important;
+  }
+}
+
