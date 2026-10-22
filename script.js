@@ -11,7 +11,7 @@
   Colombia: 57 + número de celular.
   No uses +, espacios, paréntesis ni guiones.
 */
-const WHATSAPP_NUMBER = "573001234567";
+const WHATSAPP_NUMBER = "573204273991";
 
 const $ = (selector, context = document) =>
   context.querySelector(selector);
